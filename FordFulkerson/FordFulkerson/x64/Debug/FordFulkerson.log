@@ -1,0 +1,4 @@
+﻿  main.cpp
+D:\Users\wenji\OneDrive\Escritorio\UNI3\MOG\FordFulkerson\FordFulkerson\main.cpp(10,13): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+D:\Users\wenji\OneDrive\Escritorio\UNI3\MOG\FordFulkerson\FordFulkerson\main.cpp(53,13): warning C4267: 'inicializando': conversión de 'size_t' a 'int'; posible pérdida de datos
+  FordFulkerson.vcxproj -> D:\Users\wenji\OneDrive\Escritorio\UNI3\MOG\FordFulkerson\x64\Debug\FordFulkerson.exe
