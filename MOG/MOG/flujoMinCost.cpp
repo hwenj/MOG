@@ -7,7 +7,7 @@
 using namespace std;
 
 // T es el tipo de las prioridades
-// Comparator dice cuándo un valor de tipo T es más prioritario que otro
+// Comparator dice cuÃ¡ndo un valor de tipo T es mÃ¡s prioritario que otro
 template <typename T = int, typename Comparator = std::less<T>>
 class IndexPQ {
 public:
@@ -19,13 +19,13 @@ public:
 
 private:
     // vector que contiene los datos (pares < elem, prio >)
-    std::vector<Par> array;     // primer elemento en la posición 1
+    std::vector<Par> array;     // primer elemento en la posiciÃ³n 1
 
     // vector que contiene las posiciones en array de los elementos
-    std::vector<int> posiciones;   // un 0 indica que el elemento no está
+    std::vector<int> posiciones;   // un 0 indica que el elemento no estÃ¡
 
-    /* Objeto función que sabe comparar prioridades.
-     antes(a,b) es cierto si a es más prioritario que b */
+    /* Objeto funciÃ³n que sabe comparar prioridades.
+     antes(a,b) es cierto si a es mÃ¡s prioritario que b */
     Comparator antes;
 
 public:
@@ -76,9 +76,9 @@ public:
     }
 
     void pop() {
-        if (size() == 0) throw std::domain_error("No se puede eliminar el primero de una cola vacía.");
+        if (size() == 0) throw std::domain_error("No se puede eliminar el primero de una cola vacÃ­a.");
         else {
-            posiciones[array[1].elem] = 0; // para indicar que no está
+            posiciones[array[1].elem] = 0; // para indicar que no estÃ¡
             if (size() > 1) {
                 array[1] = std::move(array.back());
                 posiciones[array[1].elem] = 1;
@@ -93,7 +93,7 @@ public:
     T const& priority(int e) const {
         int i = posiciones.at(e);
         if (i == 0)
-            throw std::domain_error("No se puede consultar la prioridad de un elemento que no ha sido insertado aún.");
+            throw std::domain_error("No se puede consultar la prioridad de un elemento que no ha sido insertado aÃºn.");
         return array[i].prioridad;
     }
 
@@ -117,7 +117,7 @@ private:
             // cambiar al hijo derecho de i si existe y va antes que el izquierdo
             if (hijo < size() && antes(array[hijo + 1].prioridad, array[hijo].prioridad))
                 ++hijo;
-            // flotar el hijo si va antes que el elemento hundiéndose
+            // flotar el hijo si va antes que el elemento hundiÃ©ndose
             if (antes(array[hijo].prioridad, parmov.prioridad)) {
                 array[hueco] = std::move(array[hijo]); posiciones[array[hueco].elem] = hueco;
                 hueco = hijo; hijo = 2 * hueco;
@@ -175,20 +175,20 @@ inline std::ostream& operator<<(std::ostream& o, AristaDirigida<Valor> const& ar
 
 
 template <typename Valor>
-using AdysDirVal = std::vector<AristaDirigida<Valor>>;  // lista de adyacentes a un vértice
+using AdysDirVal = std::vector<AristaDirigida<Valor>>;  // lista de adyacentes a un vÃ©rtice
 
 template <typename Valor>
 class DigrafoValorado {
 public:
 
     /**
-     * Crea un grafo con V vértices.
+     * Crea un grafo con V vÃ©rtices.
      */
     DigrafoValorado(int v) : _V(v), _A(0), _ady(_V) {}
 
     /**
      * Crea un grafo dirigido y valorado a partir de los datos en el flujo de entrada (si puede).
-     * primer es el índice del primer vértice del grafo en el entrada.
+     * primer es el Ã­ndice del primer vÃ©rtice del grafo en el entrada.
      */
     DigrafoValorado(std::istream& flujo, int primer = 0) : _A(0) {
         flujo >> _V;
@@ -205,25 +205,32 @@ public:
     }
 
     /**
-     * Devuelve el número de vértices del grafo.
+     * Devuelve el nÃºmero de vÃ©rtices del grafo.
      */
     int V() const { return _V; }
 
     /**
-     * Devuelve el número de aristas del grafo.
+     * Devuelve el nÃºmero de aristas del grafo.
      */
     int A() const { return _A; }
 
     /**
-     * Añade la arista dirigida v-w al grafo.
-     * @throws invalid_argument si algún vértice no existe
+     * AÃ±ade la arista dirigida v-w al grafo.
+     * @throws invalid_argument si algÃºn vÃ©rtice no existe
      */
     void ponArista(AristaDirigida<Valor> arista) {
         int v = arista.desde(), w = arista.hasta();
         if (v < 0 || v >= _V || w < 0 || w >= _V)
             throw std::invalid_argument("Vertice inexistente");
-        ++_A;
-        _ady[v].push_back(arista);
+        
+       auto& listaAdy = _ady[v];
+    auto it = std::lower_bound(listaAdy.begin(), listaAdy.end(), arista,
+                               [](const AristaDirigida<Valor>& a, const AristaDirigida<Valor>& b) {
+                                   return a.capacidad() < b.capacidad();
+                               });
+    listaAdy.insert(it, arista);
+
+    ++_A;
     }
 
     /**
@@ -262,7 +269,7 @@ public:
      * Muestra el grafo en el stream de salida o
      */
     void print(std::ostream& o = std::cout) const {
-        o << _V << " vértices, " << _A << " aristas\n";
+        o << _V << " vÃ©rtices, " << _A << " aristas\n";
         for (auto v = 0; v < _V; ++v) {
             o << v << ": ";
             for (auto a : _ady[v]) {
@@ -273,14 +280,14 @@ public:
     }
 
 private:
-    int _V;   // número de vértices
-    int _A;   // número de aristas
+    int _V;   // nÃºmero de vÃ©rtices
+    int _A;   // nÃºmero de aristas
     std::vector<AdysDirVal<Valor>> _ady;   // vector de listas de adyacentes
 
 };
 
 /**
- * Para mostrar grafos por la salida estándar.
+ * Para mostrar grafos por la salida estÃ¡ndar.
  */
 template <typename Valor>
 inline std::ostream& operator<<(std::ostream& o, const DigrafoValorado<Valor>& g) {
@@ -351,14 +358,14 @@ bool resuelveCaso() {
 
     FlujoCosteMinimo<int> f (g, flujo_nodo, 0);
 
-    // escribir la solución 
+    // escribir la soluciÃ³n 
     cout << f.coste(g.V()-1) << endl;
 
     return true;
 }
 
 //@ </answer>
-//  Lo que se escriba dejado de esta línea ya no forma parte de la solución.
+//  Lo que se escriba dejado de esta lÃ­nea ya no forma parte de la soluciÃ³n.
 
 int main() {
     // ajustes para que cin extraiga directamente de un fichero
