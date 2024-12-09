@@ -4,89 +4,113 @@
 using namespace std;
 
 
-//Aplicamos busqueda por anchura que es mas eficiente que bsuqueda pro profundidad
+// Se aplica busqueda por anchura pues es mas eficiente que la busqueda en profundidad
 bool bfs(const vector<vector<int>>& grafoResidual, int origen, int destino, vector<int>& camino) {  
-	//Guardamos el numero de nodos en una variable para no escribir la funcion cuando se necesita
+	// Numero de nodos
 	int nNodos = grafoResidual.size();
-	//Vector de nodos visitados
-	vector<bool> visitado(nNodos,false);	
-	//Colas para guardar los nodos a visitar
+
+	// Vector de nodos visitados
+	vector<bool> visitado(nNodos, false);	
+
+	// Cola para guardar los nodos a visitar
 	queue<int> cola;
 
-	//Insertar el origen en la cola es con el que vamos a empezar
+	// Se inserta el origen en la cola para empezar en el
 	cola.push(origen);	
-	//Marcar origen como visitado
+
+	// Se marca el origen como visitado
 	visitado[origen] = true;
-	//El nodo origen no tiene precedente
+
+	// El nodo origen no tiene precedente
 	camino[origen] = -1;				
 
-	//Mientras la cola no haya terminado seguimos
+	// Mientras no queden nodos en la cola
 	while (!cola.empty()) {
-		//Sacamos el nodo que esta en la primera posicion
+
+		// Se saca el nodo que esta en la primera posicion
 		int u = cola.front();
-		//Y lo eliminamos y que lo estamos visitando
+
+		// Y se elimina porque esta siendo visitado
 		cola.pop();						
 
+		// Se recorren los nodos adyacentes a este
 		for (int v = 0; v < nNodos; v++) {
-			//si no esta visitado el nodo v y hay capacidad
+
+			// Y, si no estan visitado y tienen capacidad
 			if (!visitado[v] && grafoResidual[u][v] > 0) {
-				//Registrar el camino hacia el nodo v desde el nodo u
+
+				// Se registra el camino hacia el nodo v desde el nodo u
 				camino[v] = u;
-				//Marcamos como visitado
+
+				// Se marca como visitado
 				visitado[v] = true;
-				//Lo insertamos en la cola
+
+				// Se inserta en la cola
 				cola.push(v);
 				
 				if (v == destino) {
-					//Devolvemos true si conseguimos llegar al destino(sumidero)
+					// Se devuelve true si se llega al destino(sumidero)
 					return true;
 				}
 			}
 		}
 	}
-	//En caso de que no encotramos un camino al destino devolvemos false
+
+	// En caso de no encontrar camino, se devuelve false
 	return false;
 }
 
 int fordFulkerson(vector<vector<int>>& grafo, int origen, int destino) {
-	//Numero de nodos
+	// Numero de nodos
 	int nNodos = grafo.size();
-	//GrafoResidual
+
+	// Grafo Residual, es decir, el grafo con los flujos actuales tras elegir un camino
 	vector<vector<int>> grafoResidual = grafo;
-	//Guarda el camino encontrado por el BFS
+
+	// Camino de la BFS
 	vector<int> camino(nNodos);
-	//Iniciar el flujo maximo por camino
+
+	// Flujo maximo de la red, solucion del problema
 	int maximoFlujo = 0;
 	
+	// Mientras siga habiendo un camino
 	while (bfs(grafoResidual,origen,destino,camino)) {
-		//Iniciamos a un valor grande para poder enconrtar el maximo flujo que permite el camino
+
+		// Se inicializa ell maximo flujo del camino a un valor grande
 		int maximoFlujoCamino = INT_MAX;
-		//Recorremos desde el destino al origen usuando el camino
+
+		// Se recorren todos los nodos del camino
 		for (int v = destino; v != origen; v = camino[v]) {	
 			int u = camino[v];
-			//calculamos el flujo maximo que permite el camino
+
+			// Y se calcula el flujo maximo de la red, siendo este el flujo minimo residual del camino
 			maximoFlujoCamino = min(maximoFlujoCamino,grafoResidual[u][v]);	
 		}
 
+		// Tras calcular el flujo, se actualizan las capacidades actuales de cada nodo
 		for (int v = destino; v != origen; v = camino[v]) {
 			int u = camino[v];
-			//Reducimos la capacidad de los nodos que van en direccion al origen
+
+			// Se reduce la capacidad de los nodos que van en direccion al origen
 			grafoResidual[u][v] -= maximoFlujoCamino;
-			//Aumentamos la capacodad de los ndoos que van en direccion al destino 
+
+			// Se aumenta la capacidad de los nodos que van en direccion al destino 
 			grafoResidual[v][u] += maximoFlujoCamino;		
 		}
-		//Aumentamos el flujo encontrado en el camino actual
+
+		// Se aumenta el flujo maximo con el encontrado en el camino actual
 		maximoFlujo += maximoFlujoCamino;					
 
 	}
-	//Devolvemos el flujo maximo
+
+	// Se devuelve el flujo maximo
 	return maximoFlujo;
 }
 
 int main() {
 
-	//Matriz de capacidades, siendo grafo[u][v] significa la capacidad que hay entre los nodos u y v.
-	/*
+	// Matriz de capacidades, siendo grafo[u][v] significa la capacidad que hay entre los nodos u y v.
+	
 	vector<vector<int>> grafo = { 
 		{0, 8, 0, 0, 3, 0},	//Nodo 0
 		{0, 0, 9, 0, 0, 0},	//Nodo 1
@@ -95,17 +119,18 @@ int main() {
 		{0, 0, 7, 4, 0, 0}, //Nodo 4
 		{0, 0, 0, 0, 0, 0}	//Nodo 5
 	};
-	*/
+	
+	/*
 	vector<vector<int>> grafo = {
 		{0, 10, 10, 0, 0},  // Nodo 0
 		{0, 0, 5, 5, 0},    // Nodo 1
 		{0, 0, 0, 10, 0},   // Nodo 2
 		{0, 0, 0, 0, 10},   // Nodo 3
 		{0, 0, 0, 0, 0}		// Nodo 4
-	};
+	};*/
 	
-	//Mostrar la salida
-	cout << "Flujo Máximo:" << fordFulkerson(grafo,0,4) << endl;
+	// Se muestra la solucion, 0 siempre es el nodo origen y el nodo destino es el numero de nodos del grafo.
+	cout << "Flujo Maximo: " << fordFulkerson(grafo,0,5) << endl;
 
 	return 0;
 }
