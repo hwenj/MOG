@@ -18,7 +18,7 @@ int costeRuta(const vector<int>& ruta, const vector<vector<int>>& matrizDistanci
 vector<int> algoritmoTabu(const vector<vector<int>> & matrizDistancias,int maxIteraciones, int tamLista) {
     int numCiudades = matrizDistancias.size();
 
-    // Generar solución inicial
+    // Generar soluciÃ³n inicial
     vector<int> rutaActual(numCiudades);
     for (int i = 0; i < numCiudades; i++) {
         rutaActual[i] = i;
@@ -27,10 +27,10 @@ vector<int> algoritmoTabu(const vector<vector<int>> & matrizDistancias,int maxIt
     int mejorCoste = costeRuta(rutaActual, matrizDistancias);
     vector<int> mejorRuta = rutaActual;
 
-    // Lista tabú
+    // Lista tabÃº
     vector<vector<int>> listaTabu;
 
-    // Búsqueda tabú
+    // BÃºsqueda tabÃº
     for (int iter = 0; iter < maxIteraciones; ++iter) {
         vector<vector<int>> vecinos;
 
@@ -39,7 +39,7 @@ vector<int> algoritmoTabu(const vector<vector<int>> & matrizDistancias,int maxIt
             for (int j = i + 1; j < numCiudades; ++j) {
                 vector<int> vecino = rutaActual;
                 swap(vecino[i], vecino[j]);
-                // Verificar si el vecino no está en la lista tabú
+                // Verificar si el vecino no estÃ¡ en la lista tabÃº
                 if (find(listaTabu.begin(), listaTabu.end(), vecino) == listaTabu.end()) {
                     vecinos.push_back(vecino);
                 }
@@ -58,25 +58,25 @@ vector<int> algoritmoTabu(const vector<vector<int>> & matrizDistancias,int maxIt
             }
         }
 
-        // Si se encontró un vecino mejor, actualizar ruta actual
+        // Si se encontrÃ³ un vecino mejor, actualizar ruta actual
         if (!mejorVecino.empty()) {
             rutaActual = mejorVecino;
 
-            // Actualizar la mejor solución global
+            // Actualizar la mejor soluciÃ³n global
             if (mejorCosteVecino < mejorCoste) {
                 mejorRuta = rutaActual;
                 mejorCoste = mejorCosteVecino;
             }
 
-            // Actualizar lista tabú
+            // Actualizar lista tabÃº
             listaTabu.push_back(rutaActual);
             if (listaTabu.size() > tamLista) {
-                listaTabu.erase(listaTabu.begin()); // Quitar el elemento más antiguo
+                listaTabu.erase(listaTabu.begin()); // Quitar el elemento mÃ¡s antiguo
             }
         }
 
         // Mostrar el progreso
-        cout << "Iteración " << iter + 1 << ": Mejor coste = " << mejorCoste << endl;
+        cout << "IteraciÃ³n " << iter + 1 << ": Mejor coste = " << mejorCoste << endl;
     }
 
     return mejorRuta;
@@ -96,11 +96,11 @@ int main() {
         {20, 25, 30, 0}
     };
 
-    int maxIteraciones = 100;    // Número máximo de iteraciones
-    int tamañoListaTabu = 5;     // Tamaño de la lista tabú
+    int maxIteraciones = 100;    // NÃºmero mÃ¡ximo de iteraciones
+    int tamaÃ±oListaTabu = 5;     // TamaÃ±o de la lista tabÃº
 
     // Calcular la mejor ruta
-    vector<int> mejorRuta = algoritmoTabu(matrizDistancias, maxIteraciones, tamañoListaTabu);
+    vector<int> mejorRuta = algoritmoTabu(matrizDistancias, maxIteraciones, tamaÃ±oListaTabu);
 
     return 0;
 }
