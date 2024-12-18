@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Lenovo\\Documents\\PROGRAMACI\u00D3N\\C\u002B\u002B\\MOG\\MOG\\FlujoMaximoCosteMinimo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A4541704-1A54-40D9-A271-5D4B6BE8DF32}|FlujoMaximoCosteMinimo\\FlujoMaximoCosteMinimo.vcxproj|C:\\Users\\Lenovo\\Documents\\PROGRAMACI\u00D3N\\C\u002B\u002B\\MOG\\MOG\\FlujoMaximoCosteMinimo\\FlujoMaximoCosteMinimo\\flujo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A4541704-1A54-40D9-A271-5D4B6BE8DF32}|FlujoMaximoCosteMinimo\\FlujoMaximoCosteMinimo.vcxproj|solutionrelative:FlujoMaximoCosteMinimo\\flujo.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "flujo.cpp",
+              "DocumentMoniker": "C:\\Users\\Lenovo\\Documents\\PROGRAMACI\u00D3N\\C\u002B\u002B\\MOG\\MOG\\FlujoMaximoCosteMinimo\\FlujoMaximoCosteMinimo\\flujo.cpp",
+              "RelativeDocumentMoniker": "FlujoMaximoCosteMinimo\\flujo.cpp",
+              "ToolTip": "C:\\Users\\Lenovo\\Documents\\PROGRAMACI\u00D3N\\C\u002B\u002B\\MOG\\MOG\\FlujoMaximoCosteMinimo\\FlujoMaximoCosteMinimo\\flujo.cpp",
+              "RelativeToolTip": "FlujoMaximoCosteMinimo\\flujo.cpp",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAAAJoAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-17T18:42:40.793Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

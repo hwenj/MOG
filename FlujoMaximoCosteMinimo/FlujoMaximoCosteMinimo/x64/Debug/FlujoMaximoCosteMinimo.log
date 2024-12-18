@@ -1,0 +1,4 @@
+﻿  flujo.cpp
+C:\Users\Lenovo\Documents\PROGRAMACIÓN\C++\MOG\MOG\FlujoMaximoCosteMinimo\FlujoMaximoCosteMinimo\flujo.cpp(79,104): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+C:\Users\Lenovo\Documents\PROGRAMACIÓN\C++\MOG\MOG\FlujoMaximoCosteMinimo\FlujoMaximoCosteMinimo\flujo.cpp(80,100): warning C4267: 'argumento': conversión de 'size_t' a 'int'; posible pérdida de datos
+  FlujoMaximoCosteMinimo.vcxproj -> C:\Users\Lenovo\Documents\PROGRAMACIÓN\C++\MOG\MOG\FlujoMaximoCosteMinimo\x64\Debug\FlujoMaximoCosteMinimo.exe
